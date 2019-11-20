@@ -1,0 +1,41 @@
+
+
+
+<div class="container-fluid" style="padding-top:300px;">
+    <div class="row align-items-center h-100">
+        <div class="col lg-3"></div>
+        <div class="col lg-6">
+            <form>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">API Key</label>
+                    <input name="apiKey" [(ngModel)]="apiKey"  class="form-control" id="exampleInputPassword1" placeholder="Password">
+                </div>
+                <button (click)="getAuthToken(apiKey)" class="btn btn-primary" type="button">Submit</button>
+                <button (click)="logUserState()" class="btn btn-primary" type="button">Debug</button>
+            </form>
+        </div>
+        <div class="col lg-3"></div>
+    </div>
+    <div  class="row">
+        <div class="col lg-3"></div>
+        <div class="col lg-6">
+            <div *ngIf="userState">
+                <label>Access Token:</label>
+                <p >The token is {{userState.authToken.accessToken}}</p>
+
+            </div>
+            <div *ngIf="userState">
+                <p>Authenticated is {{userState.authenticated}}</p>
+            </div>
+            <div *ngIf="headers">
+                Response headers:
+                <ul>
+                    <li *ngFor="let header of headers">{{header}}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col lg-3">
+                <p *ngIf="error" class="error">{{error | json}}</p>
+        </div>
+    </div>
+</div>

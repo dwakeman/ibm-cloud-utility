@@ -1,0 +1,28 @@
+
+<div *ngIf="resourceInstances" class="container-fluid">
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                 <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">CRN</th>
+                <th scope="col">Region</th>
+                <th scope="col">State</th>
+            </tr>
+        </thead>
+        <tbody>
+
+
+            <tr *ngFor="let resource of resourceInstances.resources; index as i">
+                <td>{{i+1}}</td>
+                <td>{{resource.name}}</td>
+                <td>{{resource.id}}</td>
+                <td>{{resource.region}}</td>
+                <td>{{resource.state}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+</div>

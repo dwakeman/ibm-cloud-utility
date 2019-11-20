@@ -1,0 +1,32 @@
+
+<div class="container-fluid" style="padding-top:300px;">
+    <div class="row align-items-center h-100">
+        <div class="col lg-3"></div>
+        <div class="col lg-6">
+            <p>Sorry, that page is not found.</p>
+        </div>
+        <div class="col lg-3"></div>
+    </div>
+    <div  class="row">
+        <div class="col lg-3"></div>
+        <div class="col lg-6">
+            <div *ngIf="userState">
+                <label>Access Token:</label>
+                <p >The token is {{userState.authToken.accessToken}}</p>
+
+            </div>
+            <div *ngIf="userState">
+                <p>Authenticated is {{userState.authenticated}}</p>
+            </div>
+            <div *ngIf="headers">
+                Response headers:
+                <ul>
+                    <li *ngFor="let header of headers">{{header}}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col lg-3">
+                <p *ngIf="error" class="error">{{error | json}}</p>
+        </div>
+    </div>
+</div>
