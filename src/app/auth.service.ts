@@ -4,7 +4,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { Token } from './token';
 import { UserState } from './user-state';
-// import { LocationService } from './location.service';
+import { LocationService } from './location.service';
 
 /*
 export interface Token {
@@ -22,10 +22,11 @@ export class AuthService {
 
     userState: UserState;
     token: Token;
-    isLoggedUrl = 'http://localhost:3000/token';
+    isLoggedUrl = 'https://utility-api.dev.wakemanco.com/token';
+//    isLoggedUrl = 'http://localhost:3000/token';
 //    isLoggedUrl = 'https://iam.cloud.ibm.com/identity/token';
 
-    constructor(private http: HttpClient) {
+    constructor(private locationService: LocationService, private http: HttpClient) {
 
 
 
@@ -42,7 +43,7 @@ export class AuthService {
 
     public authenticate(apikey: string): Observable<UserState> {
         console.log('[AuthService] - Entering authenticate with API key ' + apikey);
- //       console.log('[AuthService] - The location is ' + this.locationService.getHostname());
+        console.log('[AuthService] - The location is ' + this.locationService.getHostname());
         if (typeof this.userState === 'undefined') {
             this.userState = new UserState();
             this.userState.authToken = new Token();

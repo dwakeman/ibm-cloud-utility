@@ -99,8 +99,9 @@ export class ResourceInstancesService {
             })
 //            withCredentials: true
         };
-
-        return this.http.get('http://localhost:3000/instances/', httpOptions)
+        // https://utility-api.dev.wakemanco.com
+        return this.http.get('https://utility-api.dev.wakemanco.com/instances/', httpOptions)
+//        return this.http.get('http://localhost:3000/instances/', httpOptions)
             .pipe(
                 catchError(this.handleError)
             );

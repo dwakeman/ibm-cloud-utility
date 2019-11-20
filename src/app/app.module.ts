@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { UtilityHomeComponent } from './utility-home/utility-home.component';
 import { LoginComponent } from './login/login.component';
 import { AuthService } from './auth.service';
+import { LocationService } from './location.service';
+import { WINDOW_PROVIDERS } from './window.providers';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ResourceInstancesComponent } from './resource-instances/resource-instances.component';
 
@@ -24,7 +26,7 @@ import { ResourceInstancesComponent } from './resource-instances/resource-instan
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [AuthService],
+  providers: [WINDOW_PROVIDERS, AuthService, LocationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
