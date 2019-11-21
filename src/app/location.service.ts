@@ -8,8 +8,8 @@ export class LocationService {
     }
 
     getHostname(): string {
-        console.log('the location is ' + JSON.stringify(this.window.location));
-        console.log('getting host name now....' + this.window.location.hostname);
+//        console.log('the location is ' + JSON.stringify(this.window.location));
+//        console.log('getting host name now....' + this.window.location.hostname);
         return this.window.location.hostname;
 
     }
