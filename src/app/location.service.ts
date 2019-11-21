@@ -15,10 +15,9 @@ export class LocationService {
     }
 
     getApiDomain(): string {
-        console.log('the location is ' + JSON.stringify(this.window.location));
-        console.log('getting host name now....' + this.window.location.hostname);
+        console.log('[LocationService] - in getApiDomain.... the location is ' + JSON.stringify(this.window.location));
+        console.log('[LocationService] - getting host name now....' + this.window.location.hostname);
 
-//        let tempHostname = 'utility.dev.wakemanco.com';
         let domain = '';
 
         if (this.window.location.hostname === 'localhost') {
@@ -26,6 +25,8 @@ export class LocationService {
         } else {
             domain = 'https://utility-api.' + this.window.location.hostname.substr(this.window.location.hostname.indexOf('.') + 1 );
         }
+
+        console.log('[LocationService] - returning domain: ' + domain);
         return domain;
 //        return this.window.location.hostname;
 
