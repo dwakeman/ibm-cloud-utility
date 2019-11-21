@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { UserState } from '../user-state';
 import { Router } from '@angular/router';
@@ -11,11 +11,13 @@ import { first } from 'rxjs/operators';
 })
 export class LoginComponent implements OnInit {
 
+    @ViewChild('inputApiKey', {read: ElementRef}) inputApiKey: ElementRef;
     @Input() apiKey: string;
 
     userState: UserState;
     headers: string[];
     error: any;
+    showPassword: boolean;
 
     constructor(private authService: AuthService, private router: Router) { }
 
@@ -23,9 +25,17 @@ export class LoginComponent implements OnInit {
         console.log('[Login] - In logUserState with userState ' + JSON.stringify(this.userState));
     }
 
-
+    public togglePassword() {
+        if (this.showPassword) {
+            this.showPassword = false;
+            this.inputApiKey.nativeElement.setAttribute('type', 'text');
+        } else {
+            this.showPassword = true;
+            this.inputApiKey.nativeElement.setAttribute('type', 'password');
+        }
+    }
     ngOnInit() {
-//        this.apiKey = 'test';
+        this.showPassword = false;
     }
 
     getAuthToken(apikey: string) {

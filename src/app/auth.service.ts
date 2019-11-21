@@ -44,6 +44,7 @@ export class AuthService {
     public authenticate(apikey: string): Observable<UserState> {
         console.log('[AuthService] - Entering authenticate with API key ' + apikey);
         console.log('[AuthService] - The location is ' + this.locationService.getHostname());
+        console.log('[AuthService] - The domain is ' + this.locationService.getApiDomain());
         if (typeof this.userState === 'undefined') {
             this.userState = new UserState();
             this.userState.authToken = new Token();

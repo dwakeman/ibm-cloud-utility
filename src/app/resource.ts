@@ -12,4 +12,5 @@ export class Resource {
     aliasesUrl: string;
     bindingsUrl: string;
     keysUrl: string;
+    dashboardUrl: string;
 }

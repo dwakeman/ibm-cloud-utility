@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpResponse, HttpErrorResponse } from '@angul
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { AuthService } from './auth.service';
+import { LocationService } from './location.service';
 import { UserState } from './user-state';
 import { ResourceInstances } from './resource-instances';
 import { Resource } from './resource';
@@ -16,7 +17,7 @@ export class ResourceInstancesService {
     userState: UserState;
     resourceInstances: ResourceInstances;
 
-    constructor(private authService: AuthService, private http: HttpClient) { }
+    constructor(private authService: AuthService, private locationService: LocationService, private http: HttpClient) { }
 
 
     public getResourceInstances(): Observable<ResourceInstances> {
@@ -47,6 +48,7 @@ export class ResourceInstancesService {
                             r.type = resource['type'];
                             r.region = resource['region_id'];
                             r.state = resource['state'];
+                            r.dashboardUrl = resource['dashboard_url'];
                             resources.push(r);
                         }
 
@@ -99,9 +101,10 @@ export class ResourceInstancesService {
             })
 //            withCredentials: true
         };
-        // https://utility-api.dev.wakemanco.com
-        return this.http.get('https://utility-api.dev.wakemanco.com/instances/', httpOptions)
-//        return this.http.get('http://localhost:3000/instances/', httpOptions)
+
+        const apiUrl = this.locationService.getApiDomain() + '/v2/resource_instances';
+        console.log('[ResourceInstancesService] - in getInstances.... apiUrl is ' + apiUrl);
+        return this.http.get(apiUrl, httpOptions)
             .pipe(
                 catchError(this.handleError)
             );

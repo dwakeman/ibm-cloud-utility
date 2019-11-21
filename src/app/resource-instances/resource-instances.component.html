@@ -4,9 +4,10 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                 <th scope="col">#</th>
+                <th scope="col">#</th>
                 <th scope="col">Name</th>
-                <th scope="col">CRN</th>
+                <th scope="col">View</th>
+                <th scope="col">Type</th>
                 <th scope="col">Region</th>
                 <th scope="col">State</th>
             </tr>
@@ -16,8 +17,10 @@
 
             <tr *ngFor="let resource of resourceInstances.resources; index as i">
                 <td>{{i+1}}</td>
-                <td>{{resource.name}}</td>
-                <td>{{resource.id}}</td>
+                <td><a routerLink="/resources/{{resource.id}}">{{resource.name}}</a></td>
+                <td *ngIf="resource.dashboardUrl"><a href="{{resource.dashboardUrl}}" target="_blank">launch</a></td>
+                <td *ngIf="!resource.dashboardUrl">N/A</td>
+                <td>{{resource.type}}</td>
                 <td>{{resource.region}}</td>
                 <td>{{resource.state}}</td>
             </tr>
