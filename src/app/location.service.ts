@@ -24,7 +24,7 @@ export class LocationService {
         if (this.window.location.hostname === 'localhost') {
             domain = 'http://localhost:3000';
         } else {
-            domain = 'https://utility-api.' + this.window.location.hostname.substr(this.window.location.href.indexOf('.') + 1 );
+            domain = 'https://utility-api.' + this.window.location.hostname.substr(this.window.location.hostname.indexOf('.') + 1 );
         }
         return domain;
 //        return this.window.location.hostname;
