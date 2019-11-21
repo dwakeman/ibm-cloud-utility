@@ -11,7 +11,7 @@ import { first } from 'rxjs/operators';
 })
 export class LoginComponent implements OnInit {
 
-    @ViewChild('inputApiKey', {read: ElementRef}) inputApiKey: ElementRef;
+    @ViewChild('inputApiKey', {static: false}) inputApiKey: ElementRef;
     @Input() apiKey: string;
 
     userState: UserState;
