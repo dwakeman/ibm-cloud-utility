@@ -1,6 +1,9 @@
 
 <div *ngIf="resourceInstances" class="container-fluid">
 
+    <p>Row Count: {{resourceInstances.rowCount}}</p>
+    <p>Next URL: {{resourceInstances.nextUrl}}</p>
+    <button *ngIf="resourceInstances.nextUrl" (click)="getInstances()">More</button>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -24,6 +27,6 @@
             </tr>
         </tbody>
     </table>
-
+    
 
 </div>

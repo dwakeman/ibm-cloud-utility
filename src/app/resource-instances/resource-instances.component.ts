@@ -19,16 +19,35 @@ export class ResourceInstancesComponent implements OnInit {
 
     constructor(private authService: AuthService, private resourceInstancesService: ResourceInstancesService, private router: Router) { }
 
+    public getInstances(){
 
-    ngOnInit() {
+        console.log('[Resource Instances] entering getInstances...');
 
         this.authService.getUserState()
             .subscribe(data => {
                 this.userState = data;
                 this.resourceInstancesService.getResourceInstances()
-                .subscribe(instances => this.resourceInstances = instances);
+                .subscribe(instances => {
+                    this.resourceInstances = instances
+                });
+
             });
-        console.log('[Resource Instances] in ngOnInit with resources ' + JSON.stringify(this.resourceInstances));
+        console.log('[Resource Instances] in getInstances with resources ' + JSON.stringify(this.resourceInstances));
+    }
+
+    ngOnInit() {
+
+
+        this.resourceInstancesService.fetchInstances()
+            .subscribe(data => {
+                this.resourceInstances = data;
+                if (!this.resourceInstances) {
+
+                    console.log('[Resource Instances] in ngOnInit with no resource instances yet');
+                    this.getInstances();
+                }
+            });
+        
     }
 
 }
