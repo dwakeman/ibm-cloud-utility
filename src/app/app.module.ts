@@ -11,6 +11,7 @@ import { LocationService } from './location.service';
 import { WINDOW_PROVIDERS } from './window.providers';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ResourceInstancesComponent } from './resource-instances/resource-instances.component';
+import { ResourceInstanceComponent } from './resource-instance/resource-instance.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ResourceInstancesComponent } from './resource-instances/resource-instan
     UtilityHomeComponent,
     LoginComponent,
     PageNotFoundComponent,
-    ResourceInstancesComponent
+    ResourceInstancesComponent,
+    ResourceInstanceComponent
   ],
   imports: [
     BrowserModule,

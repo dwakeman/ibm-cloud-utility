@@ -26,12 +26,14 @@ export class LoginComponent implements OnInit {
     }
 
     public togglePassword() {
+
+//        console.log('[Login] - In togglePassword ... showPassword is ' + this.showPassword);
         if (this.showPassword) {
             this.showPassword = false;
-            this.inputApiKey.nativeElement.setAttribute('type', 'text');
+            this.inputApiKey.nativeElement.setAttribute('type', 'password');
         } else {
             this.showPassword = true;
-            this.inputApiKey.nativeElement.setAttribute('type', 'password');
+            this.inputApiKey.nativeElement.setAttribute('type', 'text');
         }
     }
     ngOnInit() {

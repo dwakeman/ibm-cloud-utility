@@ -59,28 +59,6 @@ export class ResourceInstancesService {
 
 
             });
-/*
-        const resourceInstances = new ResourceInstances();
-
-        this.getInstances()
-            .subscribe(data => {
-                this.resourceInstances.nextUrl = data['next_url'];
-                this.resourceInstances.rowCount = data['rows_count'];
-                const dataResources = data['resources'];
-
-                const resources = [];
-
-                for (let resource of dataResources) {
-                    const r = new Resource();
-                    r.id = resource['id'];
-                    resources.push(r);
-                }
-
-                resourceInstances.resources = resources;
-                console.log('[ResourceInstancesService] - in getResourceInstances.subscribe with data ' + JSON.stringify(data));
-            });
-*/
-//        console.log('[ResourceInstancesService] - exiting authenticate with userState ' + JSON.stringify(this.userState));
 
         return of(this.resourceInstances);
 

@@ -19,17 +19,8 @@ export class ResourceInstancesComponent implements OnInit {
 
     constructor(private authService: AuthService, private resourceInstancesService: ResourceInstancesService, private router: Router) { }
 
-    public togglePassword() {
-        if (this.showPassword === false) {
-            this.showPassword = true;
-        } else {
-            this.showPassword = false;
-        }
-    }
 
     ngOnInit() {
-
-        this.showPassword = false;
 
         this.authService.getUserState()
             .subscribe(data => {
