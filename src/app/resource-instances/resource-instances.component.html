@@ -2,8 +2,8 @@
 <div *ngIf="resourceInstances" class="container-fluid">
 
     <p>Row Count: {{resourceInstances.rowCount}}</p>
-    <p>Next URL: {{resourceInstances.nextUrl}}</p>
     <button *ngIf="resourceInstances.nextUrl" (click)="getInstances()">More</button>
+<!--
     <table class="table table-striped">
         <thead>
             <tr>
@@ -27,6 +27,29 @@
             </tr>
         </tbody>
     </table>
-    
+-->
+    <div *ngFor="let resource of resourceInstances.resources; index as i" class="card">
+        <div class="card-header">
+            <div class="d-flex justify-content-between">
+                <div class="p-2">
+                    <a routerLink="/instances/{{resource.guid}}">{{resource.name}} </a>
+                    <a *ngIf="resource.dashboardUrl" href="{{resource.dashboardUrl}}" target="_blank" title="View Dashboard">
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+                <div class="p-2">
+                    Region: {{resource.region}}
+                    </div>
+            </div>
+
+
+        </div>
+        <div class="card-body">
+            <p class="card-text">GUID: {{resource.guid}}</p>
+            <p class="card-text">Type: {{resource.type}}</p>
+            <p class="card-text"><small class="text-muted">State: {{resource.state}}</small></p>
+        </div>
+    </div>
+
 
 </div>
