@@ -33,35 +33,19 @@
 
 <router-outlet></router-outlet>
 
-
-
-
-
-
-
-<!--
-   <app-utility-home></app-utility-home> 
--->
-<!--
-
--->          
-<div>
-    <footer class="footer">
-        <div *ngIf="appInfo">
-            <div style="float:left;padding: 2px 2px 2px 2px">
-                Runtime: {{appInfo.runtime}}
+<div *ngIf="appInfo">
+    <div class="container-fluid fixed-bottom bg-light">
+        <div class="row">
+            <div class="col-auto mr-auto">
+                <span class="navbar-text">
+                    Region: {{appInfo.region}}
+                </span>         
             </div>
-            <div style="float:right;padding: 2px 2px 2px 2px">
-                Region: {{appInfo.region}}
+            <div class="col-auto">
+                <span class="navbar-text">
+                    Region: {{appInfo.runtime}}
+                </span>            
             </div>
         </div>
-    </footer>				
+    </div>
 </div>
-
-
-      
-
-
-
-
-
