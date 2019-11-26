@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import { catchError, retry, map } from 'rxjs/operators';
 import { Token } from './token';
 import { UserState } from './user-state';
 import { LocationService } from './location.service';
+//import 'rxjs/add/operator/do';
+import { templateSourceUrl } from '@angular/compiler';
 
 /*
 export interface Token {
@@ -22,7 +24,8 @@ export class AuthService {
 
     userState: UserState;
     token: Token;
-    isLoggedUrl = 'https://utility-api.dev.wakemanco.com/token';
+//    isLoggedUrl =
+//    isLoggedUrl = 'https://utility-api.dev.wakemanco.com/token';
 //    isLoggedUrl = 'http://localhost:3000/token';
 //    isLoggedUrl = 'https://iam.cloud.ibm.com/identity/token';
 
@@ -37,31 +40,81 @@ export class AuthService {
         return this.userState.authenticated;
     }
 
-    public getUserState(): Observable<UserState> {
-        return of(this.userState);
+    public getUserState(): UserState {
+        return this.userState;
     }
 
     public authenticate(apikey: string): Observable<UserState> {
         console.log('[AuthService] - Entering authenticate with API key ' + apikey);
         console.log('[AuthService] - The location is ' + this.locationService.getHostname());
         console.log('[AuthService] - The domain is ' + this.locationService.getApiDomain());
-        if (typeof this.userState === 'undefined') {
-            this.userState = new UserState();
-            this.userState.authToken = new Token();
-            this.userState.authenticated = false;
-        }
 
+        const body = {};
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'x-api-key': apikey
+            })
+//            withCredentials: true
+        };
+        const url = this.locationService.getApiDomain() + '/token';
+        console.log('[AuthService] - The domain is ' + url);
+
+        return this.http.post<UserState>(url, body, httpOptions)
+            .pipe(
+                map(data => {
+                    let userState = new UserState();
+                    userState.authToken = new Token();
+                    userState.authenticated = false;
+                    userState.authToken.accessToken = data['access_token'];
+                    userState.authToken.refreshToken = data['refresh_token'];
+                    userState.authToken.expiration = data['expiration'];
+                    userState.authToken.expiresIn = data['expires_in'];
+                    userState.authToken.tokenType = data['token_type'];
+                    userState.authenticated = true;
+                    this.userState = userState;
+                    return userState;
+
+                }),
+                catchError(this.handleError)
+            );
+
+        
+
+
+
+    }
+
+
+
+
+
+    /*
+    public authenticate(apikey: string): Observable<UserState> {
+        console.log('[AuthService] - Entering authenticate with API key ' + apikey);
+        console.log('[AuthService] - The location is ' + this.locationService.getHostname());
+        console.log('[AuthService] - The domain is ' + this.locationService.getApiDomain());
+//        if (typeof this.userState === 'undefined') {
+//            this.userState = new UserState();
+//            this.userState.authToken = new Token();
+//            this.userState.authenticated = false;
+//        }
+
+        const tempUserState = new Observable<UserState>;
         this.getTokenFromKey(apikey)
             .subscribe(data => {
-                this.userState.authToken.accessToken = data['access_token'];
-                this.userState.authToken.refreshToken = data['refresh_token'];
-                this.userState.authToken.expiration = data['expiration'];
-                this.userState.authToken.expiresIn = data['expires_in'];
-                this.userState.authToken.tokenType = data['token_type'];
-                this.userState.authenticated = true;
+                let userState = new UserState();
+                userState.authToken = new Token();
+                userState.authenticated = false;
+                userState.authToken.accessToken = data['access_token'];
+                userState.authToken.refreshToken = data['refresh_token'];
+                userState.authToken.expiration = data['expiration'];
+                userState.authToken.expiresIn = data['expires_in'];
+                userState.authToken.tokenType = data['token_type'];
+                userState.authenticated = true;
+                this.userState = userState;
                 console.log('[AuthService] - in authenticate.subscribe with data ' + JSON.stringify(data));
                 console.log('[AuthService] - exiting authenticate with userState ' + JSON.stringify(this.userState));
-
+                
             });
         return of(this.userState);
     }
@@ -83,7 +136,7 @@ export class AuthService {
             );
 
     }
-
+*/
     private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
         // A client-side or network error occurred. Handle it accordingly.

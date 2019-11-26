@@ -1,14 +1,21 @@
 
+<div #loadingSpinner *ngIf="loading" class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+</div>
 <div *ngIf="resourceInstances" class="container-fluid">
 
-    <p>Row Count: {{resourceInstances.rowCount}}</p>
-    <button *ngIf="resourceInstances.nextUrl" (click)="getInstances()">More</button>
-<!--
+
+
+
+    <button *ngIf="resourceInstances.nextUrl" (click)="getInstances(true)">More</button>
+
     <table class="table table-striped">
         <thead>
             <tr>
+                <th scope="col"></th>
                 <th scope="col">Name</th>
-                <th scope="col">View</th>
+                <th scope="col">GUID</th>
+                <th scope="col">Type</th>
                 <th scope="col">Region</th>
                 <th scope="col">State</th>
             </tr>
@@ -18,16 +25,21 @@
 
             <tr *ngFor="let resource of resourceInstances.resources; index as i">
                 <td>
+                    {{i+1}}
+                </td>
+                <td>
                     <a routerLink="/instances/{{resource.guid}}">{{resource.name}} </a>
                     <a *ngIf="resource.dashboardUrl" href="{{resource.dashboardUrl}}" target="_blank" title="View Dashboard"><i class="fas fa-external-link-alt"></i></a>
                 </td>
+                <td>{{resource.guid}}</td>
                 <td>{{resource.type}}</td>
                 <td>{{resource.region}}</td>
                 <td>{{resource.state}}</td>
             </tr>
         </tbody>
     </table>
--->
+
+<!--
     <div *ngFor="let resource of resourceInstances.resources; index as i" class="card">
         <div class="card-header">
             <div class="d-flex justify-content-between">
@@ -50,6 +62,6 @@
             <p class="card-text"><small class="text-muted">State: {{resource.state}}</small></p>
         </div>
     </div>
-
+-->
 
 </div>

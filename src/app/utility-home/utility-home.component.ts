@@ -20,11 +20,9 @@ export class UtilityHomeComponent implements OnInit {
 
     ngOnInit() {
 
-        this.authService.getUserState()
-            .subscribe(data => this.userState = data);
 ///        this.userState = this.authService.getUserState();
         // if not logged in redirect to the login component
-        if (typeof this.userState === 'undefined') {
+        if (typeof this.authService.getUserState() === 'undefined') {
             this.router.navigate(['/login']);
         }
     }

@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import { catchError, retry, map } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 import { LocationService } from './location.service';
 import { UserState } from './user-state';
 import { ResourceInstances } from './resource-instances';
 import { Resource } from './resource';
-import { ThrowStmt } from '@angular/compiler';
+
 
 @Injectable({
   providedIn: 'root'
@@ -24,31 +24,48 @@ export class ResourceInstancesService {
         return of(this.resourceInstances);
     }
 
-    public getResourceInstances(): Observable<ResourceInstances> {
+    public getResourceInstances(nextUrl: boolean): Observable<ResourceInstances> {
         console.log('[ResourceInstancesService] - Entering getResourceInstances...');
+        console.log('[ResourceInstancesService] - In getResourceInstances...  nextUrl is '+ nextUrl);
 
-        this.authService.getUserState()
-            .subscribe(user => {
-                this.userState = user;
-                console.log('[ResourceInstancesService] - User State...' + JSON.stringify(this.userState));
+        if (this.resourceInstances && !nextUrl) {
+            return of(this.resourceInstances);
 
-                if (!this.resourceInstances) {
-                    console.log('[ResourceInstancesService] - resourceInstances does not exist...');
-                    this.resourceInstances = new ResourceInstances();
-                    this.resourceInstances.rowCount = 0;
-                    this.resourceInstances.resources = [];
+        } else {  // Either this is the first time being called or the next set of instances has been requested
 
+            // If this is the first time initialize resourceInstances
+            if (typeof this.resourceInstances === "undefined") {
+                this.resourceInstances = new ResourceInstances();
+                this.resourceInstances.rowCount = 0;
+                this.resourceInstances.resources = [];
+            }
 
-                }
+            const body = {};
+            const httpOptions = {
+                headers: new HttpHeaders({
+                    Authorization: 'Bearer ' + this.authService.getUserState().authToken.accessToken
+                })
+            };
 
-                this.getInstances()
-                    .subscribe(data => {
-                        console.log('[ResourceInstancesService] - instances...' + JSON.stringify(data));
+            let apiUrl = '';
+            
+            if (nextUrl) {
+                apiUrl = this.locationService.getApiDomain() + this.resourceInstances.nextUrl;
+            } else {
+                apiUrl = this.locationService.getApiDomain() + '/v2/resource_instances?type=service_instance';
+            }
+
+            console.log('[ResourceInstancesService] - in getInstances.... apiUrl is ' + apiUrl);
+            return this.http.get<ResourceInstances>(apiUrl, httpOptions)                    
+                .pipe(
+                    map(data => {
+                        console.log('[ResourceInstancesService] - in map.... data is ' + JSON.stringify(data));
+                        let instances = new ResourceInstances();
+                    //console.log('[ResourceInstancesService] - instances...' + JSON.stringify(data));
                         this.resourceInstances.nextUrl = data['next_url'];
-                        this.resourceInstances.rowCount = this.resourceInstances.rowCount + data['rows_count'];
+//                        this.resourceInstances.rowCount = data['rows_count'];
+//                        instances.resources = [];
                         const dataResources = data['resources'];
-
-//                        const resources = [];
 
                         for (let resource of dataResources) {
                             const r = new Resource();
@@ -61,51 +78,18 @@ export class ResourceInstancesService {
                             r.state = resource['state'];
                             r.dashboardUrl = resource['dashboard_url'];
                             this.resourceInstances.resources.push(r);
+                            this.resourceInstances.rowCount++;    
                         }
+//                        this.resourceInstances = instances;
+                        return this.resourceInstances;
+                    },
 
-//                        this.resourceInstances.resources = resources;
-                        console.log('[ResourceInstancesService] - in getResourceInstances.subscribe with data ' + JSON.stringify(data));
-                    });
-
-
-
-            });
-
-        return of(this.resourceInstances);
-
-    }
-
-
-
-    getInstances() {
-        console.log('[ResourceInstancesService] - Entering getInstances...');
-
-//        const userState = this.authService.getUserState();
-
-        const body = {};
-        const httpOptions = {
-            headers: new HttpHeaders({
-                Authorization: 'Bearer ' + this.userState.authToken.accessToken
-//                'x-api-key': ''
-            })
-//            withCredentials: true
-        };
-
-        let apiUrl = '';
-        if (this.resourceInstances.nextUrl) {
-            apiUrl = this.locationService.getApiDomain() + this.resourceInstances.nextUrl;
-        } else {
-            apiUrl = this.locationService.getApiDomain() + '/v2/resource_instances';
+                    catchError(this.handleError)
+                ));
+    
         }
-        console.log('[ResourceInstancesService] - in getInstances.... apiUrl is ' + apiUrl);
-        return this.http.get(apiUrl, httpOptions)
-            .pipe(
-                catchError(this.handleError)
-            );
 
     }
-
-
 
     private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
     headers: string[];
     error: any;
     showPassword: boolean;
+    loading: boolean;
 
     constructor(private authService: AuthService, private router: Router) { }
 
@@ -38,10 +39,12 @@ export class LoginComponent implements OnInit {
     }
     ngOnInit() {
         this.showPassword = false;
+        console.log('[Login] - Entering ngOnInit....');
     }
 
     getAuthToken(apikey: string) {
         console.log('[Login] - Entering getAuthToken with API Key ' + this.apiKey);
+        this.loading = true;
         this.authService.authenticate(this.apiKey)
             .pipe(first())
             .subscribe((data: UserState) => {

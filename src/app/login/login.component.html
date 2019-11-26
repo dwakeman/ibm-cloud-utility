@@ -1,5 +1,7 @@
 
-
+<div #loadingSpinner *ngIf="loading" class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+</div>
 
 <div class="container-fluid" style="padding-top:300px;">
     <div class="row align-items-center h-100">
@@ -19,7 +21,9 @@
                     
                 </div>
                 <button (click)="getAuthToken(apiKey)" class="btn btn-primary" type="button">Submit</button>
-                <button (click)="logUserState()" class="btn btn-primary" type="button">Debug</button>
+<!--                
+                <button (click)="logUserState()" class="btn btn-primary" type="button">Debug</button>   
+-->  
             </form>
         </div>
         <div class="col lg-3"></div>

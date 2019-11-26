@@ -1,7 +1,7 @@
 import { Injectable, Input } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import { catchError, retry, map } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 import { LocationService } from './location.service';
 import { UserState } from './user-state';
@@ -19,42 +19,44 @@ export class ResourceInstanceService {
 
     public getResourceInstance(id: string): Observable<Resource> {
         console.log('[ResourceInstanceService] - Entering getResourceInstance...');
-
+/*
         this.authService.getUserState()
             .subscribe(user => {
                 this.userState = user;
                 console.log('[ResourceInstanceService] - User State...' + JSON.stringify(this.userState));
+*/
+        this.resource = new Resource();
 
-                this.resource = new Resource();
+        const body = {};
+        const httpOptions = {
+            headers: new HttpHeaders({
+                Authorization: 'Bearer ' + this.authService.getUserState().authToken.accessToken
+            })
+        };
 
-                this.getInstance(id)
-                    .subscribe(data => {
-                        console.log('[ResourceInstanceService] - instance...' + JSON.stringify(data));
+        const apiUrl = this.locationService.getApiDomain() + '/v2/resource_instances/' + id;
+        console.log('[ResourceInstanceService] - in getInstance.... apiUrl is ' + apiUrl);
+        return this.http.get(apiUrl, httpOptions)
+            .pipe(
+                map(data => {
+                    let resource = new Resource();
+                    resource.id = data['id'];
+                    resource.guid = data['guid'];
+                    resource.name = data['name'];
+                    resource.url = data['url'];
+                    resource.type = data['type'];
+                    resource.region = data['region_id'];
+                    resource.state = data['state'];
+                    resource.dashboardUrl = data['dashboard_url'];
+                    return resource;
+                }),
+                catchError(this.handleError)
+            );
 
-
-
-                        const r = new Resource();
-                        this.resource.id = data['id'];
-                        this.resource.guid = data['guid'];
-                        this.resource.name = data['name'];
-                        this.resource.url = data['url'];
-                        this.resource.type = data['type'];
-                        this.resource.region = data['region_id'];
-                        this.resource.state = data['state'];
-                        this.resource.dashboardUrl = data['dashboard_url'];
-
-                        console.log('[ResourceInstanceService] - in getResourceInstance.subscribe with data ' + JSON.stringify(data));
-                    });
-
-
-
-            });
-
-        return of(this.resource);
     }
 
 
-
+/*
     getInstance(id: string) {
         console.log('[ResourceInstanceService] - Entering getInstance...');
 
@@ -77,7 +79,7 @@ export class ResourceInstanceService {
             );
 
     }
-
+*/
     private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
         // A client-side or network error occurred. Handle it accordingly.

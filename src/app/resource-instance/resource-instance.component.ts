@@ -13,7 +13,7 @@ import { Location } from '@angular/common';
 })
 export class ResourceInstanceComponent implements OnInit {
 
-    @Input() resource: Resource;
+    resource: Resource;
     userState: UserState;
 
     constructor(
@@ -33,12 +33,10 @@ export class ResourceInstanceComponent implements OnInit {
 
         const resourceId = this.route.snapshot.paramMap.get('resourceId');
 
-        this.authService.getUserState()
-            .subscribe(data => {
-                this.userState = data;
-                this.resourceInstanceService.getResourceInstance(resourceId)
-                .subscribe(instance => this.resource = instance);
-            });
+
+        this.resourceInstanceService.getResourceInstance(resourceId)
+        .subscribe(instance => this.resource = instance);
+
         console.log('[Resource Instance] in ngOnInit with resources ' + JSON.stringify(this.resource));
     }
 

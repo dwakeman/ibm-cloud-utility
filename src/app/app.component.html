@@ -1,7 +1,4 @@
 
-
-
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="#">Navbar</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,7 +18,7 @@
                 Resources
                 </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" routerLink="/instances">Resource Instances</a>
+                    <a class="dropdown-item" routerLink="/instances">Service Instances</a>
                     <a class="dropdown-item" href="#">Another action</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">Something else here</a>
@@ -30,48 +27,38 @@
             <li class="nav-item">
                 <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
             </li>
-        </ul>
-<!--
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarUserDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Dropdown
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-            </li>
-        </ul>
-    -->
-<!--
-        <ul class="nav navbar-nav navbar-right">
-            <li *ngIf="!userState"><p class="navbar-text">Welcome! Please <a href="/login">Login</a></p></li>
-        </ul>		  
--->
-              
+        </ul>             
     </div>
 </nav>
 
+<router-outlet></router-outlet>
+
+
 
 
 
 
 
 <!--
-    <app-utility-home></app-utility-home>
--->          
-<router-outlet></router-outlet>
+   <app-utility-home></app-utility-home> 
+-->
+<!--
 
-<nav class="navbar fixed-bottom navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Fixed bottom</a>
-</nav> 
+-->          
+<div>
+    <footer class="footer">
+        <div *ngIf="appInfo">
+            <div style="float:left;padding: 2px 2px 2px 2px">
+                Runtime: {{appInfo.runtime}}
+            </div>
+            <div style="float:right;padding: 2px 2px 2px 2px">
+                Region: {{appInfo.region}}
+            </div>
+        </div>
+    </footer>				
+</div>
+
+
       
 
 

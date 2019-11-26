@@ -1,5 +1,8 @@
-<div class="container-fluid">
-    <form>
+<div #loadingSpinner *ngIf="!resource" class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+</div>
+<div *ngIf="resource" class="container-fluid">
+    <form >
         <div class="form-group row">
             <label for="resourceName" class="col-sm-2 col-form-label">Name</label>
             <div class="col-sm-10">
