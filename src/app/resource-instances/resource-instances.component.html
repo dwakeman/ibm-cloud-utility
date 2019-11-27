@@ -10,6 +10,44 @@
     <button *ngIf="resourceInstances.nextUrl" (click)="getInstances(true)">More</button>
 
     <div class="scrollableDiv">
+
+
+
+        <div class="accordion" id="resourceInstancesAccordion">
+            <div *ngFor="let resource of resourceInstances.resources; index as i" class="card">
+                <div class="card-header" id="header{{i}}">   
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-auto mr-auto">
+                                <button class="btn btn-link" type="button" data-toggle="collapse" attr.data-target="#collapse{{i+1}}" aria-expanded="false" aria-controls="collapse">
+                                    {{i+1}}. {{resource.name}}
+                                </button>
+                            </div>
+                            <div class="col-auto">
+                                    Region: {{resource.region}}            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="collapse{{i+1}}" class="collapse" data-parent="#resourceInstancesAccordion">
+                    <div class="card-body">
+                        <a routerLink="/instances/{{encodeUri(resource.guid)}}">{{resource.name}} </a>
+                        <a *ngIf="resource.dashboardUrl" href="{{resource.dashboardUrl}}" target="_blank" title="View Dashboard"><i class="fas fa-external-link-alt"></i></a>
+                        <p>ID: {{resource.id}}</p>
+                        <p>GUID: {{resource.guid}}</p>
+                        <pre>{{resource | json}}</pre>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+        </div>
+    
+
+
+        <!--
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -27,7 +65,7 @@
                         {{i+1}}
                     </td>
                     <td>
-                        <a routerLink="/instances/{{resource.guid}}">{{resource.name}} </a>
+                        <a routerLink="/instances/{{encodeUri(resource.guid)}}">{{resource.name}} </a>
                         <a *ngIf="resource.dashboardUrl" href="{{resource.dashboardUrl}}" target="_blank" title="View Dashboard"><i class="fas fa-external-link-alt"></i></a>
                     </td>
                     <td>{{resource.guid}}</td>
@@ -37,6 +75,7 @@
                 </tr>
             </tbody>
         </table>
+    -->
     </div>
 
 

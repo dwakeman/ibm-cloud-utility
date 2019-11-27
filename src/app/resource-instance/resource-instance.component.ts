@@ -35,9 +35,12 @@ export class ResourceInstanceComponent implements OnInit {
 
 
         this.resourceInstanceService.getResourceInstance(resourceId)
-        .subscribe(instance => this.resource = instance);
+        .subscribe(instance => {
+            this.resource = instance
+            console.log('[Resource Instance] in ngOnInit with resource ' + JSON.stringify(this.resource));
+        });
 
-        console.log('[Resource Instance] in ngOnInit with resources ' + JSON.stringify(this.resource));
+        
     }
 
 

@@ -39,16 +39,22 @@ export class ResourceInstanceService {
         return this.http.get(apiUrl, httpOptions)
             .pipe(
                 map(data => {
-                    let resource = new Resource();
-                    resource.id = data['id'];
-                    resource.guid = data['guid'];
-                    resource.name = data['name'];
-                    resource.url = data['url'];
-                    resource.type = data['type'];
-                    resource.region = data['region_id'];
-                    resource.state = data['state'];
-                    resource.dashboardUrl = data['dashboard_url'];
-                    return resource;
+                    console.log('[ResourceInstanceService] - in getInstance.... data is ' + JSON.stringify(data));
+                    if (data['status_code'] === 404) {
+                        throw new Error(data['message']);
+                    } else {
+                        let resource = new Resource();
+                        resource.id = data['id'];
+                        resource.guid = data['guid'];
+                        resource.name = data['name'];
+                        resource.url = data['url'];
+                        resource.type = data['type'];
+                        resource.region = data['region_id'];
+                        resource.state = data['state'];
+                        resource.dashboardUrl = data['dashboard_url'];
+                        return resource;
+                    }
+
                 }),
                 catchError(this.handleError)
             );
