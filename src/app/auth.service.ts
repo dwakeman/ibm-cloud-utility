@@ -5,33 +5,18 @@ import { catchError, retry, map } from 'rxjs/operators';
 import { Token } from './token';
 import { UserState } from './user-state';
 import { LocationService } from './location.service';
-//import 'rxjs/add/operator/do';
-import { templateSourceUrl } from '@angular/compiler';
 
-/*
-export interface Token {
-    access_token: string;
-    refresh_token: string;
-    token_type: string;
-    expires_in: number;
-    expiration: number;
-}
-*/
+
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService {
 
     userState: UserState;
     token: Token;
-//    isLoggedUrl =
-//    isLoggedUrl = 'https://utility-api.dev.wakemanco.com/token';
-//    isLoggedUrl = 'http://localhost:3000/token';
-//    isLoggedUrl = 'https://iam.cloud.ibm.com/identity/token';
 
     constructor(private locationService: LocationService, private http: HttpClient) {
-
-
 
     }
 
@@ -60,28 +45,23 @@ export class AuthService {
         console.log('[AuthService] - The domain is ' + url);
 
         return this.http.post<UserState>(url, body, httpOptions)
-            .pipe(
-                map(data => {
-                    let userState = new UserState();
-                    userState.authToken = new Token();
-                    userState.authenticated = false;
-                    userState.authToken.accessToken = data['access_token'];
-                    userState.authToken.refreshToken = data['refresh_token'];
-                    userState.authToken.expiration = data['expiration'];
-                    userState.authToken.expiresIn = data['expires_in'];
-                    userState.authToken.tokenType = data['token_type'];
-                    userState.authenticated = true;
-                    this.userState = userState;
-                    return userState;
+        .pipe(
+            map(data => {
+                const userState = new UserState();
+                userState.authToken = new Token();
+                userState.authenticated = false;
+                userState.authToken.accessToken = data['access_token'];
+                userState.authToken.refreshToken = data['refresh_token'];
+                userState.authToken.expiration = data['expiration'];
+                userState.authToken.expiresIn = data['expires_in'];
+                userState.authToken.tokenType = data['token_type'];
+                userState.authenticated = true;
+                this.userState = userState;
+                return userState;
 
-                }),
-                catchError(this.handleError)
-            );
-
-        
-
-
-
+            }),
+            catchError(this.handleError)
+        );
     }
 
 
