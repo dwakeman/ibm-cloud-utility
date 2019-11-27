@@ -31,7 +31,7 @@
                 </div>
                 <div id="collapse{{i+1}}" class="collapse" data-parent="#resourceInstancesAccordion">
                     <div class="card-body">
-                        <a routerLink="/instances/{{encodeUri(resource.guid)}}">{{resource.name}} </a>
+                        <a routerLink="/instances/{{encodeUri(resource.guid)}}">{{resource.name}}  </a>
                         <a *ngIf="resource.dashboardUrl" href="{{resource.dashboardUrl}}" target="_blank" title="View Dashboard"><i class="fas fa-external-link-alt"></i></a>
                         <p>ID: {{resource.id}}</p>
                         <p>GUID: {{resource.guid}}</p>
