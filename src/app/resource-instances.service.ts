@@ -48,7 +48,7 @@ export class ResourceInstancesService {
             };
 
             let apiUrl = '';
-            
+
             if (nextUrl) {
                 apiUrl = this.locationService.getApiDomain() + this.resourceInstances.nextUrl;
             } else {
@@ -56,12 +56,12 @@ export class ResourceInstancesService {
             }
 
             console.log('[ResourceInstancesService] - in getInstances.... apiUrl is ' + apiUrl);
-            return this.http.get<ResourceInstances>(apiUrl, httpOptions)                    
+            return this.http.get<ResourceInstances>(apiUrl, httpOptions)
                 .pipe(
                     map(data => {
                         console.log('[ResourceInstancesService] - in map.... data is ' + JSON.stringify(data));
-                        let instances = new ResourceInstances();
-                    //console.log('[ResourceInstancesService] - instances...' + JSON.stringify(data));
+//                        let instances = new ResourceInstances();
+
                         this.resourceInstances.nextUrl = data['next_url'];
 //                        this.resourceInstances.rowCount = data['rows_count'];
 //                        instances.resources = [];
@@ -77,8 +77,9 @@ export class ResourceInstancesService {
                             r.region = resource['region_id'];
                             r.state = resource['state'];
                             r.dashboardUrl = resource['dashboard_url'];
+                            r.resourceGroupId = resource['resource_group_id'];
                             this.resourceInstances.resources.push(r);
-                            this.resourceInstances.rowCount++;    
+                            this.resourceInstances.rowCount++;
                         }
 //                        this.resourceInstances = instances;
                         return this.resourceInstances;
@@ -86,7 +87,7 @@ export class ResourceInstancesService {
 
                     catchError(this.handleError)
                 ));
-    
+
         }
 
     }
