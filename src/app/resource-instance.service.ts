@@ -62,30 +62,7 @@ export class ResourceInstanceService {
     }
 
 
-/*
-    getInstance(id: string) {
-        console.log('[ResourceInstanceService] - Entering getInstance...');
 
-//        const userState = this.authService.getUserState();
-
-        const body = {};
-        const httpOptions = {
-            headers: new HttpHeaders({
-                Authorization: 'Bearer ' + this.userState.authToken.accessToken
-//                'x-api-key': ''
-            })
-//            withCredentials: true
-        };
-
-        const apiUrl = this.locationService.getApiDomain() + '/v2/resource_instances/' + id;
-        console.log('[ResourceInstanceService] - in getInstance.... apiUrl is ' + apiUrl);
-        return this.http.get(apiUrl, httpOptions)
-            .pipe(
-                catchError(this.handleError)
-            );
-
-    }
-*/
     private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
         // A client-side or network error occurred. Handle it accordingly.

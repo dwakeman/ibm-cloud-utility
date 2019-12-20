@@ -1,6 +1,7 @@
 export class Resource {
     id: string;
     guid: string;
+    accountId: string;
     url: string;
     name: string;
     region: string;
@@ -13,4 +14,10 @@ export class Resource {
     bindingsUrl: string;
     keysUrl: string;
     dashboardUrl: string;
+    createdAt: string;
+    createdBy: string;
+    updatedAt: string;
+    updatedBy: string;
+    deletedAt: string;
+    deletedBy: string;
 }

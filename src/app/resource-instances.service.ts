@@ -72,12 +72,24 @@ export class ResourceInstancesService {
                             r.id = resource['id'];
                             r.guid = resource['guid'];
                             r.name = resource['name'];
+                            r.accountId = resource['account_id'];
                             r.url = resource['url'];
                             r.type = resource['type'];
                             r.region = resource['region_id'];
                             r.state = resource['state'];
+                            r.crn = resource['crn'];
+                            r.targetCrn = resource['target_crn'];
                             r.dashboardUrl = resource['dashboard_url'];
+                            r.aliasesUrl = resource['resource_aliases_url'];
+                            r.bindingsUrl = resource['resource_bindings_url'];
+                            r.keysUrl = resource['resource_keys_url'];
                             r.resourceGroupId = resource['resource_group_id'];
+                            r.createdAt = resource['created_at'];
+                            r.createdBy = resource['created_by'];
+                            r.updatedAt = resource['updated_at'];
+                            r.updatedBy = resource['updated_by'];
+                            r.deletedAt = resource['deleted_at'];
+                            r.deletedBy = resource['deleted_by'];
                             this.resourceInstances.resources.push(r);
                             this.resourceInstances.rowCount++;
                         }
