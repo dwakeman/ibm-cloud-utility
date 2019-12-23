@@ -11,7 +11,7 @@ import { Resource } from './resource';
 @Injectable({
   providedIn: 'root'
 })
-export class KpInstancesService {
+export class KeyInstancesService {
 
     userState: UserState;
     resourceInstances: ResourceInstances;

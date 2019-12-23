@@ -75,6 +75,7 @@ export class ResourceInstancesService {
                             r.accountId = resource['account_id'];
                             r.url = resource['url'];
                             r.type = resource['type'];
+                            r.subType = resource['sub_type'];
                             r.region = resource['region_id'];
                             r.state = resource['state'];
                             r.crn = resource['crn'];

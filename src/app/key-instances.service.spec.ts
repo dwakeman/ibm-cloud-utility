@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { KpKeysService } from './kp-keys.service';
+import { KeyInstancesService } from './key-instances.service';
 
-describe('KpKeysService', () => {
+describe('KeyInstancessService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: KpKeysService = TestBed.get(KpKeysService);
+    const service: KeyInstancesService = TestBed.get(KeyInstancesService);
     expect(service).toBeTruthy();
   });
 });

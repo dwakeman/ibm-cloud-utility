@@ -90,6 +90,7 @@
                     <th scope="col">Name</th>
                     <th scope="col">Resource Group</th>
                     <th scope="col">Type</th>
+                    <th scope="col">Sub Type</th>
                     <th scope="col">Region</th>
                     <th scope="col">State</th>
                     <th scope="col">Details</th>
@@ -101,11 +102,13 @@
                         {{i+1}}
                     </td>
                     <td>
-                        <a routerLink="/instances/{{encodeUri(resource.guid)}}">{{resource.name}} </a>
-                        <a *ngIf="resource.dashboardUrl" href="{{resource.dashboardUrl}}" target="_blank" title="View Dashboard"><i class="fas fa-external-link-alt"></i></a>
+                        <a routerLink="/instances/{{encodeUri(resource.guid)}}">{{resource.name}}</a>
+                        <a *ngIf="resource.dashboardUrl" href="{{resource.dashboardUrl}}" target="_blank" title="View Dashboard"><i class="fas fa-external-link-alt" style="padding-left:8px;"></i></a>
+                        <a *ngIf="resource.subType=='kms'" routerLink="/keys/{{encodeUri(resource.guid)}}"><i class="fas fa-key" style="padding-left:8px;"></i></a>
                     </td>
                     <td>{{rGroups[resource.resourceGroupId]}}</td>
                     <td>{{resource.type}}</td>
+                    <td>{{resource.subType}}</td>
                     <td>{{resource.region}}</td>
                     <td>{{resource.state}}</td>
                     <td>

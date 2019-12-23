@@ -36,9 +36,9 @@ export class ResourceInstancesComponent implements OnInit {
         const encodedUri = uri.replace('/', '%2F');
 //        console.log('[Resource Instances] encodedUri: ' + encodedUri);
         return encodeURI(encodedUri);
-    };
+    }
 
-    public getInstances(nextUrl: boolean){
+    public getInstances(nextUrl: boolean) {
 
         console.log('[Resource Instances] entering getInstances...');
         this.loading = true;

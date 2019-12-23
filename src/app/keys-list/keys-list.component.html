@@ -1,0 +1,45 @@
+<div #loadingSpinner *ngIf="loading" class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+</div>
+
+<div *ngIf="keyInstances" class="container-fluid">
+
+    <div class="scrollableDiv">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Name</th>
+                    <th scope="col">ID</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Created By</th>
+                    <th scope="col">Created At</th>
+                    <th scope="col">Updated At</th>
+                    <th scope="col">State</th>
+                    <th scope="col">Imported</th>
+                    <th scope="col">Extractable</th>
+                </tr>
+            </thead>
+            <tbody>   
+                <tr *ngFor="let key of keyInstances.keys; index as i">
+                    <td>
+                        {{i+1}}
+                    </td>
+                    <td>
+                        {{key.name}}
+                    </td>
+                    <td>{{key.id}}</td>
+                    <td>{{key.type}}</td>
+                    <td>{{key.createdBy}}</td>
+                    <td>{{key.createdAt}}</td>
+                    <td>{{key.updatedAt}}</td>
+                    <td>{{key.state}}</td>
+                    <td>{{key.extractable}}</td>
+                    <td>{{key.imported}}</td>
+                </tr>
+            </tbody>
+        </table>
+    
+    </div>
+    <button (click)="goBack()">Back</button>
+</div>

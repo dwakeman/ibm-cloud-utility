@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AuthService } from '../auth.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 import { UserState } from '../user-state';
 import { ResourceInstances } from '../resource-instances';
-import { KpInstancesService } from '../kp-instances.service';
+import { KeyInstancesService } from '../kp-instances.service';
 import { ResourceGroupsService } from '../resource-groups.service';
 import { ResourceGroup } from '../resource-group';
 
@@ -24,8 +25,10 @@ export class KeysHomeComponent implements OnInit {
 
     constructor(
         private authService: AuthService,
-        private kpInstancesService: KpInstancesService,
+        private keyInstancesService: KeyInstancesService,
         private resourceGroupsService: ResourceGroupsService,
+        private route: ActivatedRoute,
+        private location: Location,
         private router: Router
     ) { }
 
@@ -41,7 +44,7 @@ export class KeysHomeComponent implements OnInit {
         console.log('[KP Instances] entering getInstances...');
         this.loading = true;
 
-        this.kpInstancesService.getResourceInstances(nextUrl)
+        this.keyInstancesService.getResourceInstances(nextUrl)
         .subscribe(instances => {
             this.kpInstances = instances;
 
@@ -51,6 +54,10 @@ export class KeysHomeComponent implements OnInit {
 
         });
 
+    }
+
+    goBack(): void {
+        this.location.back();
     }
 
     ngOnInit() {

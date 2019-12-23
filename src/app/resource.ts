@@ -10,6 +10,7 @@ export class Resource {
     crn: string;
     state: string;
     type: string;
+    subType: string;
     aliasesUrl: string;
     bindingsUrl: string;
     keysUrl: string;

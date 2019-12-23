@@ -13,6 +13,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { ResourceInstancesComponent } from './resource-instances/resource-instances.component';
 import { ResourceInstanceComponent } from './resource-instance/resource-instance.component';
 import { KeysHomeComponent } from './keys-home/keys-home.component';
+import { KeysListComponent } from './keys-list/keys-list.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { KeysHomeComponent } from './keys-home/keys-home.component';
     PageNotFoundComponent,
     ResourceInstancesComponent,
     ResourceInstanceComponent,
-    KeysHomeComponent
+    KeysHomeComponent,
+    KeysListComponent
   ],
   imports: [
     BrowserModule,

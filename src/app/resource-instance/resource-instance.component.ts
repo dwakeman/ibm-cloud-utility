@@ -11,6 +11,7 @@ import { Location } from '@angular/common';
   templateUrl: './resource-instance.component.html',
   styleUrls: ['./resource-instance.component.css']
 })
+
 export class ResourceInstanceComponent implements OnInit {
 
     resource: Resource;
@@ -26,7 +27,7 @@ export class ResourceInstanceComponent implements OnInit {
 
     goBack(): void {
         this.location.back();
-        }
+    }
 
     ngOnInit() {
 
@@ -36,11 +37,10 @@ export class ResourceInstanceComponent implements OnInit {
 
         this.resourceInstanceService.getResourceInstance(resourceId)
         .subscribe(instance => {
-            this.resource = instance
+            this.resource = instance;
             console.log('[Resource Instance] in ngOnInit with resource ' + JSON.stringify(this.resource));
         });
 
-        
     }
 
 

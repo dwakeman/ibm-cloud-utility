@@ -4,10 +4,6 @@
 <div *ngIf="kpInstances" class="container-fluid">
 
 
-
-
-    <button *ngIf="kpInstances.nextUrl" (click)="getInstances(true)">More</button>
-
     <div class="scrollableDiv">
         <table class="table table-striped">
             <thead>
@@ -19,6 +15,7 @@
                     <th scope="col">Region</th>
                     <th scope="col">State</th>
                     <th scope="col">Details</th>
+                    <th scope="col">View Keys</th>
                 </tr>
             </thead>
             <tbody>   
@@ -27,7 +24,7 @@
                         {{i+1}}
                     </td>
                     <td>
-                        <a routerLink="/instances/{{encodeUri(resource.guid)}}">{{resource.name}} </a>
+                        <a routerLink="/instances/{{encodeUri(resource.guid)}}">{{resource.name}}  </a>
                         <a *ngIf="resource.dashboardUrl" href="{{resource.dashboardUrl}}" target="_blank" title="View Dashboard"><i class="fas fa-external-link-alt"></i></a>
                     </td>
                     <td>{{rGroups[resource.resourceGroupId]}}</td>
@@ -40,32 +37,32 @@
                         </button>
 
                         <div class="modal fade" id="exampleModal{{i+1}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
+                            <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">{{resource.name}}</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
+                                        <h5 class="modal-title" id="exampleModalLabel">{{resource.name}}</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
                                     </div>
                                     <div class="modal-body">
                                             <pre>{{resource | json}}</pre>
                                     </div>
                                     <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>        
                                     </div>
                                 </div>
-                                </div>
                             </div>
-
-
-
-
+                        </div>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-primary" routerLink="/keys/{{encodeUri(resource.guid)}}">
+                            <i class="fas fa-key"></i>
+                        </button>
                     </td>
                 </tr>
             </tbody>
         </table>
-    
+        <button (click)="goBack()">Back</button>
     </div>
 </div>
