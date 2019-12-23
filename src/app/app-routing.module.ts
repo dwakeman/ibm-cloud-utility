@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { UtilityHomeComponent } from './utility-home/utility-home.component';
 import { LoginComponent } from './login/login.component';
 import { ResourceInstancesComponent } from './resource-instances/resource-instances.component';
+import { KeysHomeComponent } from './keys-home/keys-home.component';
 import { ResourceInstanceComponent } from './resource-instance/resource-instance.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
@@ -12,6 +13,7 @@ const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'instances', component: ResourceInstancesComponent },
     { path: 'instances/:resourceId', component: ResourceInstanceComponent },
+    { path: 'kpinstances', component: KeysHomeComponent },
     { path: '**', component: PageNotFoundComponent }
 ];
 

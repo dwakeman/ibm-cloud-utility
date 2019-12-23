@@ -12,6 +12,7 @@ import { WINDOW_PROVIDERS } from './window.providers';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ResourceInstancesComponent } from './resource-instances/resource-instances.component';
 import { ResourceInstanceComponent } from './resource-instance/resource-instance.component';
+import { KeysHomeComponent } from './keys-home/keys-home.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ResourceInstanceComponent } from './resource-instance/resource-instance
     LoginComponent,
     PageNotFoundComponent,
     ResourceInstancesComponent,
-    ResourceInstanceComponent
+    ResourceInstanceComponent,
+    KeysHomeComponent
   ],
   imports: [
     BrowserModule,

@@ -8,25 +8,19 @@ import { UserState } from './user-state';
 import { ResourceInstances } from './resource-instances';
 import { Resource } from './resource';
 
-
 @Injectable({
   providedIn: 'root'
 })
-
-export class ResourceInstancesService {
+export class KpInstancesService {
 
     userState: UserState;
     resourceInstances: ResourceInstances;
 
     constructor(private authService: AuthService, private locationService: LocationService, private http: HttpClient) { }
 
-    public fetchInstances(): Observable<ResourceInstances> {
-        return of(this.resourceInstances);
-    }
-
     public getResourceInstances(nextUrl: boolean): Observable<ResourceInstances> {
-        console.log('[ResourceInstancesService] - Entering getResourceInstances...');
-        console.log('[ResourceInstancesService] - In getResourceInstances...  nextUrl is '+ nextUrl);
+        console.log('[KpInstancesService] - Entering getResourceInstances...');
+        console.log('[KpInstancesService] - In getResourceInstances...  nextUrl is '+ nextUrl);
 
         if (this.resourceInstances && !nextUrl) {
             return of(this.resourceInstances);
@@ -52,10 +46,10 @@ export class ResourceInstancesService {
             if (nextUrl) {
                 apiUrl = this.locationService.getApiDomain() + this.resourceInstances.nextUrl;
             } else {
-                apiUrl = this.locationService.getApiDomain() + '/v2/resource_instances?type=service_instance';
+                apiUrl = this.locationService.getApiDomain() + '/kpinstances';
             }
 
-            console.log('[ResourceInstancesService] - in getInstances.... apiUrl is ' + apiUrl);
+            console.log('[KpInstancesService] - in getInstances.... apiUrl is ' + apiUrl);
             return this.http.get<ResourceInstances>(apiUrl, httpOptions)
                 .pipe(
                     map(data => {
@@ -119,6 +113,18 @@ export class ResourceInstancesService {
     return throwError(
         'Something bad happened; please try again later.');
     }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

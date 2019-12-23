@@ -89,7 +89,7 @@ export class ResourceInstancesComponent implements OnInit {
                         this.getInstances(false);
             
                     }
-                })
+                });
         }
     }
 

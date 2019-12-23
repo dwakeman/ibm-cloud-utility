@@ -1,0 +1,71 @@
+<div #loadingSpinner *ngIf="loading" class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+</div>
+<div *ngIf="kpInstances" class="container-fluid">
+
+
+
+
+    <button *ngIf="kpInstances.nextUrl" (click)="getInstances(true)">More</button>
+
+    <div class="scrollableDiv">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Resource Group</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Region</th>
+                    <th scope="col">State</th>
+                    <th scope="col">Details</th>
+                </tr>
+            </thead>
+            <tbody>   
+                <tr *ngFor="let resource of kpInstances.resources; index as i">
+                    <td>
+                        {{i+1}}
+                    </td>
+                    <td>
+                        <a routerLink="/instances/{{encodeUri(resource.guid)}}">{{resource.name}} </a>
+                        <a *ngIf="resource.dashboardUrl" href="{{resource.dashboardUrl}}" target="_blank" title="View Dashboard"><i class="fas fa-external-link-alt"></i></a>
+                    </td>
+                    <td>{{rGroups[resource.resourceGroupId]}}</td>
+                    <td>{{resource.type}}</td>
+                    <td>{{resource.region}}</td>
+                    <td>{{resource.state}}</td>
+                    <td>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" attr.data-target="#exampleModal{{i+1}}">
+                                <i class="fas fa-bars"></i>
+                        </button>
+
+                        <div class="modal fade" id="exampleModal{{i+1}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">{{resource.name}}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    </div>
+                                    <div class="modal-body">
+                                            <pre>{{resource | json}}</pre>
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+
+
+
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    
+    </div>
+</div>
