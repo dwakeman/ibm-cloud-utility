@@ -15,7 +15,7 @@
 FROM nginx:stable
 LABEL maintainer="dwakeman@us.ibm.com"
 
-COPY dist /usr/share/nginx/html
+COPY dist/ibm-cloud-utility /usr/share/nginx/html
 
 
 # support running as arbitrary user which belogs to the root group

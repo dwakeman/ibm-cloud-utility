@@ -57,7 +57,7 @@ npm install
 ng build --output-hashing all
 
 # Copy the Staticfile to the dist directory
-cp Staticfile dist/ibm-cloud-utility
+#cp Staticfile dist/ibm-cloud-utility
 
 
 echo -e "Existing images in registry"
