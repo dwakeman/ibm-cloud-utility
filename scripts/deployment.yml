@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: utility-ui
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: utility-ui
