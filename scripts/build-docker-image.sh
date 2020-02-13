@@ -39,7 +39,7 @@ fi
 # Added by Dave Wakeman
 # Installs the version of node that your application needs
 export NVM_DIR=/home/pipeline/nvm
-export NODE_VERSION=10.9.0
+export NODE_VERSION=10.13.0
 export NVM_VERSION=0.29.0
 
 npm config delete prefix \
