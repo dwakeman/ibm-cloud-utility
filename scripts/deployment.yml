@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: utlity-ui
+  name: utility-ui
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: utlity-ui
+      app: utility-ui
   template:
     metadata:
       labels:
-        app: utlity-ui
+        app: utility-ui
     spec:
       containers:
-      - name: utlity-ui
+      - name: utility-ui
         image: webapp:1
         # for local development against minikube registry
         #imagePullPolicy: Never        
@@ -44,7 +44,7 @@ spec:
       targetPort: 8080
   # label keys and values that must match in order to receive traffic for this service
   selector:
-    app: utlity-ui
+    app: utility-ui
 ---
 apiVersion: extensions/v1beta1
 kind: Ingress
