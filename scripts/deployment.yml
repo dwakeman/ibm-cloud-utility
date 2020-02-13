@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: utlity-ui
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: utlity-ui
+  template:
+    metadata:
+      labels:
+        app: utlity-ui
+    spec:
+      containers:
+      - name: utlity-ui
+        image: webapp:1
+        # for local development against minikube registry
+        #imagePullPolicy: Never        
+        ports:
+        - containerPort: 8080
+        env:
+        - name: LOG_LEVEL
+          value: "debug"
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"      
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: utility-ui-service
+  labels:
+    app: utility-ui-service
+spec:
+  type: ClusterIP
+  ports:
+    # the port that this service should serve on
+    - port: 80
+      targetPort: 8080
+  # label keys and values that must match in order to receive traffic for this service
+  selector:
+    app: utlity-ui
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: utility-ui-ingress
+spec:
+  tls:
+  - hosts:
+    - utility.dev.eyebeemdemos.com
+    secretName: eyebeemdemos-secret-tls
+  rules:
+  - host: utility.dev.eyebeemdemos.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: utility-ui-service
+          servicePort: 80
