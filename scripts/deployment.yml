@@ -14,7 +14,8 @@ spec:
     spec:
       containers:
       - name: utility-ui
-        image: webapp:1
+        image: us.icr.io/davewakeman/cloud-utility-ui:master-0-3a5ea6bc-20200213221413
+#        image: webapp:1     <----- the tekton pipeline script dynamically changes this
         # for local development against minikube registry
         #imagePullPolicy: Never        
         ports:
