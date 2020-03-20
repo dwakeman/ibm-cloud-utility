@@ -27,7 +27,7 @@ export class LocationService {
     //        domain = 'https://utility-api.' + this.window.location.hostname.substr(this.window.location.hostname.indexOf('.') + 1 );
         }
 
-        console.log('[LocationService] - returning domain: ' + domain);
+        console.log('[LocationService] - returning domain (this should be the kubernetes service name!!): ' + domain);
         return domain;
 //        return this.window.location.hostname;
 
